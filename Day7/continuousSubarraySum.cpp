@@ -13,3 +13,29 @@ Explanation: [2, 4] is a continuous subarray of size 2 whose elements sum up to 
 
 */
 
+
+#include<bits/stdc++.h>
+int checkSubarraySum(vector<int>& nums, int k){
+    unordered_map<int, int> ump;
+    ump[0] = -1;
+    int sm = 0;
+    for(int i=0; i<nums.size(); i++){
+        sm = (sm + nums[i])%k;
+        if(ump.find(sm)!=ump.end()){
+            if(i-ump[sm]>=2){
+                return true;
+            }
+        }
+        else{
+            ump[sm] = i;
+        }
+    }
+    return false;
+}
+using namespace std;
+int main(){
+    vector<int> nums = {23,2,4,6,7};
+    int k = 6;
+    cout<<checkSubarraySum(nums, k);
+    return 0;
+}
